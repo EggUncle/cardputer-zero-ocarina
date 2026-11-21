@@ -1,0 +1,8 @@
+[Unit]
+Description=CardputerZero Bluetooth gamepad session
+After=bluetooth.service
+
+[Service]
+Type=simple
+ExecStart=/opt/cardputer-ocarina/start-bluetooth.sh 1000 auto
+TimeoutStopSec=45

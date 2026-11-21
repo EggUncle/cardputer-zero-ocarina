@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch for CardputerZero gamepad launch requests
+
+[Path]
+PathChanged=/home/egguncle/.local/state/ocarina-radio.request
+Unit=ocarina-radio.service
+
+[Install]
+WantedBy=multi-user.target

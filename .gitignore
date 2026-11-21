@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Personal recordings and scores
+/repertoire/
+/example/
+*.mp3
+*.wav
+*.mid
+*.midi
+*.ocarina.json
+*.tar.gz

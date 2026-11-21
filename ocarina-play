@@ -1,0 +1,17 @@
+#!/bin/bash
+set -eu
+base=/opt/cardputer-ocarina
+uid=$(id -u)
+sock="/run/pcble2gamepad/$uid/pro.sock"
+if [[ ! -S $sock ]]; then
+    sudo systemd-run --unit=ocarina-pad --collect -p TimeoutStopSec=45 "$base/start-bluetooth.sh" "$uid"
+fi
+python3 "$base/pair.py" &
+pulse=$!
+trap 'kill "$pulse" 2>/dev/null || true' EXIT
+for ((i=0;i<100;i++)); do
+    [[ -S $sock ]] && break
+    sleep .25
+done
+[[ -S $sock ]] || { echo '启动失败，请查看 journalctl -u ocarina-pad'; exit 1; }
+python3 "$base/ocarina.py" "$@"
